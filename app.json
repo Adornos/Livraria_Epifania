@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Livraria_Epifania",
+    "slug": "Livraria_Epifania",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "expo-router": {
+      "pages": {
+      "index": "app/(tabs)/index.js",
+      "entry": "app/(tabs)/entry.js",
+      "login": "app/(tabs)/login.js",
+      "sign-up": "app/(tabs)/sign-up.js",
+      "user": {
+        "settings": "app/(tabs)/user/settings.js",
+        "main": "app/(tabs)/user/main.js"
+      }
+      }
+    }
+    
+  }
+}
