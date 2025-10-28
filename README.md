@@ -13,7 +13,8 @@
 
 ## Alterações a serem feitas
 
-- Finalizar a construção de todas as páginas
-- Realizar a conexão com o banco de dados
+- Finalizar a construção das páginas do usuário
+- Finalizar a construção de todas as páginas xx
+- Realizar a conexão com o banco de dados 
 - Generalizar todos os componentes
 - Configurar Layout
