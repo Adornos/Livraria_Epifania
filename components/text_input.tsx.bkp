@@ -1,0 +1,37 @@
+import { TextInput } from "react-native";
+import C from "../constants/colors";
+import T from "../constants/topography";
+
+type EpifaniaTextInputProps = {
+  placeholder: string;
+  secureTextEntry?: boolean;
+  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
+  style?: object;
+};
+
+const EpifaniaTextInput = ({ placeholder, secureTextEntry = false, keyboardType = 'default', style = {} }: EpifaniaTextInputProps) => {
+  return (
+
+    <TextInput
+      placeholder={placeholder}
+      secureTextEntry={secureTextEntry}
+      keyboardType={keyboardType}
+      style={{
+        ...T.p,
+        backgroundColor: C.inputBackground,
+        height: 50,
+        borderRadius: 12,
+        paddingHorizontal: 12,
+        marginBottom: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        elevation: 4,
+        ...style,
+      }}
+      placeholderTextColor={C.mutedText}
+    />
+  );
+};
+
+export default EpifaniaTextInput;
