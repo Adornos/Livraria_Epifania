@@ -27,19 +27,8 @@
     },
     "plugins": [
       "expo-router"
-    ],
-    "expo-router": {
-      "pages": {
-      "index": "app/(tabs)/index.js",
-      "entry": "app/(tabs)/entry.js",
-      "login": "app/(tabs)/login.js",
-      "sign-up": "app/(tabs)/sign-up.js",
-      "user": {
-        "settings": "app/(tabs)/user/settings.js",
-        "main": "app/(tabs)/user/main.js"
-      }
-      }
-    }
+    ]
+
     
   }
 }

@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Image } from 'reac
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from 'expo-router';
 
-import Ctn from '../../constants/containers'; // Importa Containers do projeto
-import T from '../../constants/topography'; // importa Topografia HTML
-import C from '../../constants/colors'; // Importa Cores do projeto
-import EntryLogo from '../../components/entry_logo'; // Importa o componente de logo
+import Ctn from '../constants/containers'; // Importa Containers do projeto
+import T from '../constants/topography'; // importa Topografia HTML
+import C from '../constants/colors'; // Importa Cores do projeto
+import EntryLogo from '../components/entry_logo'; // Importa o componente de logo
 
-const App = () => {
+export default function App_EntryIndex(){
     return (
         <SafeAreaView style={[Ctn.mainContainer, { justifyContent: 'flex-end' }]}>
             <StatusBar barStyle="light-content" backgroundColor={C.mutedText} />
@@ -22,5 +22,3 @@ const App = () => {
         </SafeAreaView>
     );
 };
-
-export default App;

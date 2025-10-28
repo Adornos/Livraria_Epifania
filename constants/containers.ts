@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import C from './colors';
+import { SearchBar } from 'react-native-screens';
 
 const Container = StyleSheet.create({
     mainContainer: {
@@ -15,7 +16,38 @@ const Container = StyleSheet.create({
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    SearchBar:{
+        width: '90%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: C.inputBackground,
+        borderRadius: 24,
+        paddingHorizontal: 10,
+        marginVertical: 10,
+        marginHorizontal: 'auto',
+    },
+    homeContainer:{
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: C.background,
+    },
+    bookHorizontalContainer: {
+    },
+
+    bookCard: {
+        padding: 8,
+        backgroundColor: '#EDA72D',
+        // marginEnd: 16,
+    },
+
+    bookImage: {
+        width: 128,
+        height: 184,
+        resizeMode: 'cover',
+    },
+
 });
 
 export default Container;

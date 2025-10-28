@@ -14,10 +14,10 @@ const App = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar barStyle="light-content" backgroundColor={C.mutedText} />
+            <View style={[{alignItems: 'center', marginVertical: '25%'}]}>
+                <Logo />
+            </View>
             <KeyboardAvoidingView behavior="padding" style={[Ctn.mainContainer, { justifyContent: 'space-around' }]}>
-                <View style={{alignItems: 'center'}}>
-                    <Logo />
-                </View>
                 <View style={{ width: '83%' }}>
                     <EpifaniaTextInput placeholder="Email"/>
                     <EpifaniaTextInput placeholder="Senha" secureTextEntry={true}/>
