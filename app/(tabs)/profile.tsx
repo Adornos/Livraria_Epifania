@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 
+import Ctn from '../../constants/containers'; // Importa Containers do projeto
+import T from '../../constants/topography'; // importa Topografia HTML
+// import {C} from '../../constants/colors';
+import Logo from '../../components/logo'; // Importa o componente de logo
+
+
+import EpifaniaProfileInput from '../../components/text_profile';
+
 export default function ProfilePage() {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -10,7 +18,7 @@ export default function ProfilePage() {
   const [senha, setSenha] = useState("");
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ alignItems: "center" }}>
+    <ScrollView style={Ctn.scrollContainer} contentContainerStyle={{ alignItems: "center" }}>
       <Image
         source={{ uri: "https://cdn-icons-png.flaticon.com/512/149/149071.png" }}
         style={styles.profileImage}
@@ -18,64 +26,12 @@ export default function ProfilePage() {
       
       <Text style={styles.title}>Meu Perfil</Text>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Nome</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu nome"
-          placeholderTextColor="#aaa"
-          value={nome}
-          onChangeText={setNome}
-        />
-
-        <Text style={styles.label}>Sobrenome</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu sobrenome"
-          placeholderTextColor="#aaa"
-          value={sobrenome}
-          onChangeText={setSobrenome}
-        />
-
-        <Text style={styles.label}>Telefone</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu telefone"
-          placeholderTextColor="#aaa"
-          keyboardType="phone-pad"
-          value={telefone}
-          onChangeText={setTelefone}
-        />
-
-        <Text style={styles.label}>E-mail</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu e-mail"
-          placeholderTextColor="#aaa"
-          keyboardType="email-address"
-          value={email}
-          onChangeText={setEmail}
-        />
-
-        <Text style={styles.label}>CPF</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu CPF"
-          placeholderTextColor="#aaa"
-          keyboardType="numeric"
-          value={cpf}
-          onChangeText={setCpf}
-        />
-
-        <Text style={styles.label}>Senha</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite sua senha"
-          placeholderTextColor="#aaa"
-          secureTextEntry
-          value={senha}
-          onChangeText={setSenha}
-        />
+      <View style={[styles.inputContainer, {flex: 1, width: "85%", flexWrap: 'wrap', flexDirection: 'column', gap: 16, marginHorizontal: 'auto'}]}>
+        <EpifaniaProfileInput label={'Nome'} placeholder={'Nome'} value={nome} onChangeText={setNome} style={{flex: 100}}></EpifaniaProfileInput>
+        <EpifaniaProfileInput label={'Sobrenome'} placeholder={'Sobrenome'} value={sobrenome} onChangeText={setSobrenome} style={{flex: 100}}></EpifaniaProfileInput>
+        <EpifaniaProfileInput label={"Telefone"} placeholder={"Telefone"} value={telefone} onChangeText={setTelefone} style={{ flex: 100 }} keyboardType="phone-pad"/>
+        <EpifaniaProfileInput label={"Email"} placeholder={"Email"} value={email} onChangeText={setEmail} style={{ flex: 100 }} keyboardType="email-address"/> <EpifaniaProfileInput label={"CPF"} placeholder={"CPF"} value={cpf} onChangeText={setCpf} style={{ flex: 1 }}/>
+        <EpifaniaProfileInput label={"Senha"} placeholder={"Senha"} value={senha} onChangeText={setSenha} style={{ flex: 100 }} secureTextEntry/>
       </View>
 
       <TouchableOpacity style={styles.saveButton}>

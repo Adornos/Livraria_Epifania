@@ -5,7 +5,7 @@ import { Link, useRouter } from 'expo-router';
 
 import Ctn from '../../constants/containers'; // Importa Containers do projeto
 import T from '../../constants/topography'; // importa Topografia HTML
-import C from '../../constants/colors'; // Importa Cores do projeto
+import C from '../../constants/colors';
 import Logo from '../../components/logo'; // Importa o componente de logo
 
 import EpifaniaTextInput from '../../components/text_input';
@@ -25,10 +25,10 @@ export default function Auth_Login(){
                             <EpifaniaTextInput placeholder="Email"/>
                             <EpifaniaTextInput placeholder="Senha" secureTextEntry={true}/>
                                 <TouchableOpacity onPress={() => router.push("/home")} style={{backgroundColor: C.primaryButton, width: '100%', height: 50, borderRadius: 12, justifyContent: 'center', alignItems: 'center'}}>
-                                    <Text style={[T.h3, T.center, T.button, {color: C.textPrimary}]}>Entrar</Text>
+                                    <Text style={[T.h3, T.center, T.button, {color: C.textBtn}]}>Entrar</Text>
                                 </TouchableOpacity>
                             <Link href="/sign-up" style={{marginTop: 20}}>
-                                <Text style={[T.caption, T.center, {color: C.textPrimary}]}>Esqueci minha senha</Text>
+                                <Text style={[T.caption, T.center, {color: C.textPrim}]}>Esqueci minha senha</Text>
                             </Link>
                         </View>
                     </View>

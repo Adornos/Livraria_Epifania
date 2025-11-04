@@ -1,5 +1,5 @@
 import { TextInput, KeyboardAvoidingView } from "react-native";
-import C from "../constants/colors";
+import C from '../constants/colors';
 import T from "../constants/topography";
 type EpifaniaTextInputProps = {
   placeholder: string;
@@ -17,7 +17,7 @@ const EpifaniaTextInput = ({ placeholder, secureTextEntry = false, keyboardType 
         keyboardType={keyboardType}
         style={{
           ...T.p,
-          backgroundColor: C.inputBackground,
+          backgroundColor: C.backgroundSec,
           height: 50,
           borderRadius: 12,
           paddingHorizontal: 12,
@@ -28,7 +28,7 @@ const EpifaniaTextInput = ({ placeholder, secureTextEntry = false, keyboardType 
           elevation: 4,
           ...style,
         }}
-        placeholderTextColor={C.mutedText}
+        placeholderTextColor={C.textSec}
       />
     </KeyboardAvoidingView>
   );

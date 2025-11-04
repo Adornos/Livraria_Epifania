@@ -5,7 +5,7 @@ import { Link } from 'expo-router';
 
 import Ctn from '../../constants/containers'; // Importa Containers do projeto
 import T from '../../constants/topography'; // importa Topografia HTML
-import C from '../../constants/colors'; // Importa Cores do projeto
+import C from '../../constants/colors';
 import Logo from '../../components/logo'; // Importa o componente de logo
 
 const DATA = [
@@ -41,7 +41,7 @@ export default function Tabs_Home() {
                                 />
                                 {/* 
                                 <Text style={[T.h3, {alignSelf: 'flex-start'}]}>{item.name}</Text>
-                                <Text style={[T.p, {color: C.mutedText, alignSelf: 'flex-end'}]}>{item.author}</Text> 
+                                <Text style={[T.p, {color: C.textSec, alignSelf: 'flex-end'}]}>{item.author}</Text> 
                                 */}
                             </View>
                         )}

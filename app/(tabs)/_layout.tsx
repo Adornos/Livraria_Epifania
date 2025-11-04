@@ -12,23 +12,23 @@ export default function RootLayout() {
       <React.Fragment>
         <Tabs screenOptions={{
           headerShown: false,
-          tabBarInactiveBackgroundColor: `${C.background}`,
-          tabBarActiveBackgroundColor: `${C.inputBackground}`,
-          tabBarActiveTintColor: `${C.textPrimary}`,
+          tabBarInactiveBackgroundColor: C.backgroundPrim,
+          tabBarActiveBackgroundColor: C.backgroundSec,
+          tabBarActiveTintColor: C.textPrim,
         }}>
           <Tabs.Screen name="home" options={{
             title: "Home",
             headerShown: true,
             header: () => (
-              <View style={{backgroundColor: C.background}}>
+              <View style={{backgroundColor: C.backgroundPrim}}>
                 <View style={[Ctn.SearchBar]}>
-                  <Feather name="search" size={24} color={C.textPrimary} />
+                  <Feather name="search" size={24} color={C.textPrim} />
                   <TextInput
-                    style={[{flex: 1, fontSize: 16, color: `${C.textPrimary}`}]}
+                    style={[{flex: 1, fontSize: 16, color: C.textPrim}]}
                     // value={value}
                     // onChangeText={onChangeText}
                     placeholder='Procurar...'
-                    placeholderTextColor={C.mutedText}
+                    placeholderTextColor={C.textSec}
                   />
                 </View>
               </View>

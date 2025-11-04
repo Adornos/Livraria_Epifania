@@ -1,0 +1,31 @@
+import { useColorScheme } from "react-native"
+
+const Colors = {
+  dark: {
+    backgroundPrim: '#121212',
+    backgroundSec: '#222222',   // Inputs (cinza claro)
+    backgroundTert: '#3A3A3A',
+    textPrim: '#FFFFFF',        // Texto principal (branco)
+    textSec: '#B0B4BC',    // Texto secundário (cinza azulado)
+    primaryButton: '#980225',      // Botão de login (vermelho)
+    iconText: '#F3E8CC',           // Texto do ícone (bege)
+    textBtn: '#FFFFFF',
+  },
+
+  light: {
+    backgroundPrim: '#F3E8CC',
+    backgroundSec: '#FAF6EA',  // Inputs (cinza claro)
+    backgroundTert: '#FFFFFF',
+    textPrim: '#121212',      // Texto principal (branco)
+    textSec: '#B0B4BC',   // Texto secundário (cinza azulado)
+    primaryButton: '#980225',      // Botão de login (vermelho)
+    iconText: '#F3E8CC',  
+    textBtn: '#FFFFFF',
+  }
+}
+
+export const Theme = () => {
+  const scheme = useColorScheme() as keyof typeof Colors;
+  return Colors[scheme] ?? Colors.dark;
+};
+

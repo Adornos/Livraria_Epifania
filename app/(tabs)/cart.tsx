@@ -1,205 +1,158 @@
-import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from "react-native";
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Ctn from '../../constants/containers';
+import T from '../../constants/topography';
+import C from '../../constants/colors';
+import Logo from '../../components/logo';
 
-export default function CartPage() {
-  const [cartItems, setCartItems] = useState([
+interface CartItem {
+  id: string;
+  title: string;
+  price: number;
+  image?: any;
+  details?: string;
+  quantity?: number;
+}
+
+interface Cart {
+  items: CartItem[];
+  total?: number;
+}
+
+const initialCart: Cart = {
+  items: [
     {
-      id: "1",
-      title: "Duna",
-      author: "Frank Herbert",
-      price: 59.90,
-      image: require("../../components/imgs/books/book.jpg"),
+      id: '1',
+      title: 'O Pequeno Príncipe',
+      price: 39.9,
+      image: require('../../components/imgs/books/book.jpg'),
+      details: 'Capa: D | Lingua: BR',
       quantity: 1,
     },
     {
-      id: "2",
-      title: "Fundação",
-      author: "Isaac Asimov",
-      price: 49.90,
-      image: require("../../components/imgs/books/book.jpg"),
+      id: '2',
+      title: 'Dom Casmurro',
+      price: 29.5,
+      image: require('../../components/imgs/books/book.jpg'),
+      details: 'Capa: D | Lingua: BR',
       quantity: 2,
-    },
-  ]);
+    }
+  ],
+};
 
-  const increaseQuantity = (id) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
+export default function CartPage() {
+
+  const updateCartQuantity = (itemId: string, increment: boolean) => {
+    setCart((prev) => ({
+      ...prev,
+      items: prev.items.map((it) =>
+        it.id === itemId
+          ? { ...it, quantity: increment ? (it.quantity ?? 1) + 1 : Math.max(1, (it.quantity ?? 1) - 1) }
+          : it
+      ),
+    }));
   };
 
-  const decreaseQuantity = (id) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
+  const removeItemFromCart = (itemId: string) => {
+    setCart((prev) => ({
+      ...prev,
+      items: prev.items.filter((it) => it.id !== itemId),
+    }));
   };
 
-  const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+  const [cart, setCart] = useState<Cart>(initialCart);
 
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+  const formatBRL = (value: number) =>
+    `R$ ${value.toFixed(2).replace('.', ',')}`;
+
+  const total = cart.items.reduce(
+    (sum, it) => sum + it.price * (it.quantity ?? 1),
     0
   );
 
-  const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
-      <Image source={item.image} style={styles.bookImage} />
-
-      <View style={{ flex: 1 }}>
-        <Text style={styles.bookTitle}>{item.title}</Text>
-        <Text style={styles.bookAuthor}>{item.author}</Text>
-        <Text style={styles.bookPrice}>R$ {item.price.toFixed(2)}</Text>
-
-        <View style={styles.quantityContainer}>
+  return (
+    <>
+    <SafeAreaView style={{flex: 1 }}>
+      <View style={Ctn.homeContainer}>
+        <Text style={T.h1}>Carrinho</Text>
+  
+        {cart.items.map((item) => (
+          <View key={item.id} style={Ctn.cartItemContainer}>
+            <View style={Ctn.cartImageContainer}>
+              <Image
+                source={item.image}
+                style={Ctn.cartImage}
+                resizeMode="contain"
+              />
+            </View>
+  
+            <View style={[Ctn.cartDetailsContainer]}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                }}
+              >
+                <Text style={[T.p, {flexShrink: 1, color: C.backgroundPrim}]} numberOfLines={2}>{item.title}</Text>
+                <TouchableOpacity
+                  hitSlop={8}
+                  onPress={() => removeItemFromCart(item.id)}
+                  >
+                  <MaterialCommunityIcons name="close" size={24} color={C.backgroundPrim} />
+                </TouchableOpacity>
+                  
+              </View>
+  
+              <Text style={[T.h3, {color: C.backgroundPrim}, T.bold]}>{formatBRL(item.price)}</Text>
+  
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+              <Text style={[T.caption, T.muted]} numberOfLines={2}> {item.details} </Text>
+  
+  
+              <View style={Ctn.itemQuantityContainer}>
+                <TouchableOpacity
+                  hitSlop={10}
+                  onPress={() => updateCartQuantity(item.id, false)}
+                >
+                  <MaterialCommunityIcons name="minus" size={18} color={C.textSec} />
+                </TouchableOpacity>
+  
+                <Text style={[T.p, {color: C.textSec}]}>{item.quantity ?? 1}</Text>
+  
+                <TouchableOpacity
+                  hitSlop={10}
+                  onPress={() => updateCartQuantity(item.id, true)}
+                >
+                  <MaterialCommunityIcons name="plus" size={18} color={C.textSec} />
+                </TouchableOpacity>
+              </View>
+              </View>
+            </View>
+          </View>
+        ))}
+  
+        <View style={Ctn.footerContainer}>
+          <Text style={T.h2}>Total: {formatBRL(total)}</Text>
           <TouchableOpacity
-            style={styles.quantityButton}
-            onPress={() => decreaseQuantity(item.id)}
+            style={[
+              Ctn.submitButton,
+              { marginTop: 24, width: '84%', height: 48, borderRadius: 24, marginHorizontal: 'auto' },
+            ]}
           >
-            <Text style={styles.quantityButtonText}>-</Text>
-          </TouchableOpacity>
-
-          <Text style={styles.quantityText}>{item.quantity}</Text>
-
-          <TouchableOpacity
-            style={styles.quantityButton}
-            onPress={() => increaseQuantity(item.id)}
-          >
-            <Text style={styles.quantityButtonText}>+</Text>
+            <Text style={[T.h3, { color: C.textBtn}]}>Finalizar Compra</Text>
           </TouchableOpacity>
         </View>
       </View>
-
-      <TouchableOpacity
-        onPress={() => removeItem(item.id)}
-        style={styles.removeButton}
-      >
-        <Text style={{ color: "#980225", fontWeight: "bold" }}>Remover</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Carrinho de Compras</Text>
-
-      <FlatList
-        data={cartItems}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        contentContainerStyle={{ paddingBottom: 100 }}
-      />
-
-      <View style={styles.footer}>
-        <Text style={styles.totalText}>Total: R$ {total.toFixed(2)}</Text>
-        <TouchableOpacity style={styles.checkoutButton}>
-          <Text style={styles.checkoutText}>Finalizar Compra</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+    </SafeAreaView>
+    </>
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#121212",
-    paddingHorizontal: 16,
-    paddingTop: 40,
-  },
-  title: {
-    fontSize: 22,
-    color: "#fff",
-    fontWeight: "bold",
-    marginBottom: 20,
-    alignSelf: "center",
-  },
-  itemContainer: {
-    flexDirection: "row",
-    backgroundColor: "#1E1E1E",
-    borderRadius: 12,
-    padding: 10,
-    marginBottom: 16,
-    alignItems: "center",
-  },
-  bookImage: {
-    width: 70,
-    height: 100,
-    borderRadius: 8,
-    marginRight: 12,
-  },
-  bookTitle: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  bookAuthor: {
-    color: "#aaa",
-    fontSize: 14,
-  },
-  bookPrice: {
-    color: "#980225",
-    fontSize: 15,
-    fontWeight: "bold",
-    marginVertical: 4,
-  },
-  quantityContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 8,
-  },
-  quantityButton: {
-    backgroundColor: "#980225",
-    borderRadius: 5,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-  },
-  quantityButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  quantityText: {
-    color: "#fff",
-    fontSize: 16,
-    marginHorizontal: 10,
-  },
-  removeButton: {
-    marginLeft: 10,
-  },
-  footer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "#1E1E1E",
-    padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: "#000", // Changed from "#333" to "#000" or any other appropriate color
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  totalText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  checkoutButton: {
-    backgroundColor: "#980225",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-  },
-  checkoutText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
