@@ -5,23 +5,23 @@ const Topography = StyleSheet.create({
   h1: {
     fontSize: 32,
     fontWeight: '700',
-    color: Colors.textPrimary,
+// color: Colors.textPrimary,
   },
   h2: {
     fontSize: 24,
     fontWeight: '600',
-    color: Colors.textPrimary,
+// color: Colors.textPrimary,
   },
   h3: {
     fontSize: 18,
     fontWeight: '500',
-    color: Colors.textPrimary,
+// color: Colors.textPrimary,
   },
 
   // Paragraph
   p: {
     fontSize: 16,
-    color: Colors.textSecondary,
+// color: Colors.textSecondary,
     lineHeight: 24,
   },
 
@@ -30,11 +30,11 @@ const Topography = StyleSheet.create({
     fontWeight: '700',
   },
   muted: {
-    color: Colors.mutedText,
+// color: Colors.mutedText,
   },
   caption: {
     fontSize: 12,
-    color: Colors.mutedText,
+// color: Colors.mutedText,
     fontStyle: 'italic',
   },
   button: {
