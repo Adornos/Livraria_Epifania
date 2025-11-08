@@ -261,7 +261,7 @@ export default function Home() {
           },
         })
       }
-      style={[styles.bookCard, { backgroundColor: colors.backgroundBook }]}
+      style={[ { backgroundColor: colors.backgroundBook }, styles.bookCard]}
     >
       <Image 
         source={{ uri: book.image }} 

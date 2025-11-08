@@ -1,0 +1,188 @@
+[
+  {
+    "id_categoria": 1,
+    "categoria": "Ficção Científica",
+    "data": [{}],
+    "livros": [
+      {
+        "id_livro": 10,
+        "isbn": "9788576573135",
+        "titulo": "Duna",
+        "data": "1965-08-01",
+        "autor": "Frank Herbert",
+        "sinopse": "Em um futuro distante, a disputa pelo controle do planeta desértico Arrakis, única fonte da especiaria melange, coloca famílias nobres em guerra. A jornada de Paul Atreides é uma das mais épicas da ficção científica.",
+        "image": "https://m.media-amazon.com/images/I/81zN7udGRUL._SL1500_.jpg",
+        "editora": "Editora Aurora",
+        "categorias": ["Ficção Científica"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 100, "quantidade": 15 },
+          { "tipo": "Capa dura", "price": 150, "quantidade": 7 }
+        ]
+      },
+      {
+        "id_livro": 11,
+        "isbn": "9788576572008",
+        "titulo": "Neuromancer",
+        "data": "1984-07-01",
+        "autor": "William Gibson",
+        "sinopse": "O hacker Case é contratado para a missão mais perigosa de sua vida em um mundo dominado por megacorporações e inteligências artificiais. Romance que inaugurou o movimento cyberpunk.",
+        "image": "https://covers.openlibrary.org/b/id/10521267-L.jpg",
+        "editora": "Editora Aurora",
+        "categorias": ["Recomendado", "Ficção Científica"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 95, "quantidade": 12 },
+          { "tipo": "Capa dura", "price": 140, "quantidade": 6 }
+        ]
+      },
+      {
+        "id_livro": 12,
+        "isbn": "9788576571902",
+        "titulo": "Fundação",
+        "data": "1951-06-01",
+        "autor": "Isaac Asimov",
+        "sinopse": "Hari Seldon desenvolve a psico-história, ciência que prevê o futuro de impérios galácticos. Ao perceber a queda iminente do Império, ele cria a Fundação para preservar o conhecimento humano.",
+        "image": "https://covers.openlibrary.org/b/id/12659839-L.jpg",
+        "editora": "Editora Aurora",
+        "categorias": ["Ficção Científica"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 85, "quantidade": 10 },
+          { "tipo": "Capa dura", "price": 130, "quantidade": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "id_categoria": 2,
+    "categoria": "Fantasia",
+    "data": [{}],
+    "livros": [
+      {
+        "id_livro": 13,
+        "isbn": "9788533613379",
+        "titulo": "O Senhor dos Anéis: A Sociedade do Anel",
+        "data": "1954-07-29",
+        "autor": "J.R.R. Tolkien",
+        "sinopse": "Frodo Bolseiro recebe a tarefa de destruir o Um Anel e parte em uma jornada épica pela Terra-média acompanhado por seus amigos e aliados.",
+        "image": "https://covers.openlibrary.org/b/id/8231856-L.jpg",
+        "editora": "Editora Horizonte",
+        "categorias": ["Recomendado", "Fantasia"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 110, "quantidade": 8 },
+          { "tipo": "Capa dura", "price": 160, "quantidade": 5 }
+        ]
+      },
+      {
+        "id_livro": 14,
+        "isbn": "9788532530783",
+        "titulo": "Harry Potter e a Pedra Filosofal",
+        "data": "1997-06-26",
+        "autor": "J.K. Rowling",
+        "sinopse": "Harry Potter descobre ser um bruxo e entra em Hogwarts, onde começa sua aventura contra as forças das trevas lideradas por Voldemort.",
+        "image": "https://covers.openlibrary.org/b/id/7884861-L.jpg",
+        "editora": "Editora Horizonte",
+        "categorias": ["Fantasia"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 95, "quantidade": 10 },
+          { "tipo": "Capa dura", "price": 140, "quantidade": 6 }
+        ]
+      },
+      {
+        "id_livro": 15,
+        "isbn": "9788578270698",
+        "titulo": "As Crônicas de Nárnia",
+        "data": "1950-10-16",
+        "autor": "C.S. Lewis",
+        "sinopse": "Quatro irmãos descobrem um guarda-roupa mágico que os leva a Nárnia, um mundo encantado governado pelo leão Aslam.",
+        "image": "https://covers.openlibrary.org/b/id/8226191-L.jpg",
+        "editora": "Editora Horizonte",
+        "categorias": ["Recomendado", "Fantasia"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 80, "quantidade": 12 },
+          { "tipo": "Capa dura", "price": 120, "quantidade": 7 }
+        ]
+      },
+      {
+        "id_livro": 16,
+        "isbn": "9788599296882",
+        "titulo": "O Nome do Vento",
+        "data": "2007-03-27",
+        "autor": "Patrick Rothfuss",
+        "sinopse": "A história de Kvothe, um mago lendário que conta sua vida a um cronista — desde sua infância trágica até se tornar um herói e assassino de reis.",
+        "image": "https://covers.openlibrary.org/b/id/8312055-L.jpg",
+        "editora": "Editora Horizonte",
+        "categorias": ["Fantasia"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 100, "quantidade": 9 },
+          { "tipo": "Capa dura", "price": 145, "quantidade": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "id_categoria": 3,
+    "categoria": "Romance Clássico",
+    "data": [{}],
+    "livros": [
+      {
+        "id_livro": 17,
+        "isbn": "9788520932070",
+        "titulo": "Orgulho e Preconceito",
+        "data": "1813-01-28",
+        "autor": "Jane Austen",
+        "sinopse": "Elizabeth Bennet enfrenta os desafios da sociedade inglesa do século XIX e o orgulhoso Mr. Darcy, em um romance sobre amor e classe social.",
+        "image": "https://covers.openlibrary.org/b/id/8225631-L.jpg",
+        "editora": "Editora Solaris",
+        "categorias": ["Recomendado", "Romance Clássico"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 60, "quantidade": 15 },
+          { "tipo": "Capa dura", "price": 90, "quantidade": 10 }
+        ]
+      },
+      {
+        "id_livro": 18,
+        "isbn": "9788577992942",
+        "titulo": "Jane Eyre",
+        "data": "1847-10-16",
+        "autor": "Charlotte Brontë",
+        "sinopse": "Uma jovem órfã supera dificuldades e luta por sua independência e dignidade, enquanto vive um romance com o misterioso Sr. Rochester.",
+        "image": "https://covers.openlibrary.org/b/id/10521458-L.jpg",
+        "editora": "Editora Solaris",
+        "categorias": ["Romance Clássico"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 65, "quantidade": 12 },
+          { "tipo": "Capa dura", "price": 95, "quantidade": 8 }
+        ]
+      },
+      {
+        "id_livro": 19,
+        "isbn": "9788572326544",
+        "titulo": "O Morro dos Ventos Uivantes",
+        "data": "1847-12-01",
+        "autor": "Emily Brontë",
+        "sinopse": "A trágica e intensa história de amor entre Heathcliff e Catherine, ambientada nos ventos frios das charnecas inglesas.",
+        "image": "https://covers.openlibrary.org/b/id/8235040-L.jpg",
+        "editora": "Editora Solaris",
+        "categorias": ["Recomendado", "Romance Clássico"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 70, "quantidade": 14 },
+          { "tipo": "Capa dura", "price": 100, "quantidade": 9 }
+        ]
+      },
+      {
+        "id_livro": 20,
+        "isbn": "9788520932414",
+        "titulo": "Anna Kariênina",
+        "data": "1878-01-01",
+        "autor": "Liev Tolstói",
+        "sinopse": "Um dos maiores romances da literatura russa, narra a paixão proibida de Anna e Vronski, explorando temas de moral, sociedade e felicidade.",
+        "image": "https://covers.openlibrary.org/b/id/12659623-L.jpg",
+        "editora": "Editora Solaris",
+        "categorias": ["Romance Clássico"],
+        "tipos": [
+          { "tipo": "Brochura", "price": 72, "quantidade": 10 },
+          { "tipo": "Capa dura", "price": 105, "quantidade": 7 }
+        ]
+      }
+    ]
+  }
+]

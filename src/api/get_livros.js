@@ -41,6 +41,11 @@ export const construct_livro_categoria = async () => {
       throw new Error("Dados não arrays");
     }
 
+    generate_livroRecomendadosIndex(livros.length).forEach(i => livros[i].categorias.unshift('Recomendados')); // Gera os 5 livros recomendados aleatórios
+    
+    // console.warn('Resposta do gerador: ', JSON.stringify(livros))
+
+
     const categorias = categoriasRaw.map(cat => ({ ...cat, data: [{}] }))
 
     const livroCategoria = categorias.map(cat => ({
@@ -55,4 +60,16 @@ export const construct_livro_categoria = async () => {
     console.error("Erro ao construir estrutura:", error);
     return [];
   }
+}
+  
+const generate_livroRecomendadosIndex = (length) => {
+
+  const livroRecomendadosIndex = new Set();
+
+  while (livroRecomendadosIndex.size < 5) {
+    const x = Math.floor(Math.random() * length);
+    livroRecomendadosIndex.add(x);
   }
+
+  return Array.from(livroRecomendadosIndex);
+}
