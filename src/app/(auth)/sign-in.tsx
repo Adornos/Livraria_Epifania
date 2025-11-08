@@ -28,8 +28,6 @@ type Usuario = {
   complemento?: string | null;
 };
 
-
-
 export default function Sign() {
   const colors = useThemeColor();
 
@@ -64,10 +62,12 @@ export default function Sign() {
   }
 
   const validarFormulario = async () => {
+
     if (!nome || !email || !senha) {
       alert("Preencha os campos obrigatórios!");
       return null;
     } 
+
     const result = await set_usuario(criarObjetoUsuario());
       if (result.success) {
         alert('Usuário criado com sucesso!');
@@ -83,7 +83,9 @@ export default function Sign() {
       <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
         <ScrollView style={{ backgroundColor: colors.backgroundPrim}}>
           <View style={{ width: '86%', flex:1, flexDirection: 'column', marginHorizontal: 'auto', gap: 16}}>
+            
             <Logo style={{marginVertical: 64}}/>
+
             <Input value={nome} onChangeText={setNome} placeholder="Nome" />
             <Input value={sobrenome} onChangeText={setSobrenome} placeholder="Sobrenome" />
             <Input value={email} onChangeText={setEmail} placeholder="Email" keyboardType="email-address" />
@@ -99,6 +101,7 @@ export default function Sign() {
             <Input value={complemento} onChangeText={setComplemento} placeholder="Complemento" />
 
             <Button style={{marginBottom: 64}}label="Criar Conta" onPress={() => {validarFormulario()}} />
+
           </View>
         </ScrollView>
       </SafeAreaView>

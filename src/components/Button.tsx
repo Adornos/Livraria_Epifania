@@ -24,7 +24,7 @@ export default function Button({label, style = {}, ...props} : Props){
       ...style
 
       }}>
-        <Text style={[{color: C.textPrim}, T.h3, T.center]}>{label}</Text>
+        <Text style={[{color: C.textBtn}, T.h3, T.center]}>{label}</Text>
     </TouchableOpacity>
     );
 }

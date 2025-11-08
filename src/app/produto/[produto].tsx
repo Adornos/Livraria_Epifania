@@ -1,35 +1,114 @@
-import { ScrollView, Image, Text, View } from 'react-native';
+import { ScrollView, Image, Text, View, Pressable, ImageBackground } from 'react-native';
 import { useThemeColor } from '@hooks/useThemeColor';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { RadioButton } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
+
 import TextStyles from '@constants/topography';
 import Button from '@components/Button';
+import { useEffect, useState } from 'react';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+type tiposTemplate = {
+  tipo: string,
+  price: string,
+  quantidade: string
+}
+
+type bookTemplate = {
+  id_livro: string,
+  titulo: string,
+  image: string,
+  sinopse: string,
+  autor: string,
+  editora: string,
+  tipos: tiposTemplate[]
+}
+
 
 
 export default function Produto() {
 
+  const router = useRouter();
   const { book } = useLocalSearchParams<{ book: string }>();
   const bookData = JSON.parse(book);
   const colors = useThemeColor();
+  const [tipoRadio, setTipoRadio] = useState('0');
+  const [preco, setPreco] = useState('');
+
+  useEffect(() => setPreco(
+    Number(bookData.tipos[tipoRadio].price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+  ), [tipoRadio])
+
+  const construct_TipoRadioButton = (tiposArray : tiposTemplate[]) => {
+    
+    return (
+          tiposArray.map((tipos, i) => (
+            <Pressable onPress={() => setTipoRadio(i.toString()) } style={{flex:1, flexDirection:'row', justifyContent:'space-between', alignItems: 'center', backgroundColor: colors.backgroundSec, borderRadius: 50, borderWidth: 1, borderColor: colors.backgroundTert}}>
+              <RadioButton.Item
+                value={i.toString()}
+                label={tipos.tipo}
+                status={tipoRadio === i.toString() ? 'checked' : 'unchecked'}
+                position='leading'
+                labelStyle={{ color: colors.textPrim, fontWeight: 800 }}
+                style={{ padding: 0 }}
+              />
+              <Text style={[{color: colors.textPrim, fontWeight:800, marginEnd: '7%'}]}>
+                {Number(tipos.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+              </Text>
+            </Pressable>
+          ))
+    )
+  }
+
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
-      <Image
-        source={{ uri: bookData.image }}
-        style={{ width: 200, height: 300, alignSelf: 'center', marginVertical: 20, borderRadius: 10 }}
-      />
-      <View style={{ paddingHorizontal: 20 }}>
-        <Text style={[TextStyles.h1, { color: colors.textPrim }]}>{bookData.titulo}</Text>
-        <Text style={[TextStyles.p, { color: colors.textSec }]}>Autor: {bookData.autor}</Text>
-        <Text style={[TextStyles.p, { color: colors.textSec }]}>Editora: {bookData.editora}</Text>
-        <Text style={[TextStyles.p, { color: colors.textSec }]}>Tipo: {bookData.tipo}</Text>
-        <Text style={[TextStyles.h2, { color: colors.textPrim, marginTop: 10 }]}>R$ 59,90</Text>
+    <>
+    <SafeAreaProvider>
+    <SafeAreaView style={{ flex: 1 }} edges={['left', 'right']}>
+    <ImageBackground blurRadius={3} source={{ uri: bookData.image }} resizeMode="cover" style={{flex: 1,justifyContent: 'center'}}>
+      <Pressable
+        onPress={() => router.back()}
+        style={{ zIndex:100, position: 'absolute', width: 48, padding: 12, left: 20, top: 40, backgroundColor: colors.primaryButton, borderRadius: 100 }}
+        >
+        <Ionicons name="arrow-back" size={24} color={colors.textBtn} />
+      </Pressable>
+      <ScrollView style={{ flex: 1, backgroundColor: '#00000063'}}>
+        <View>
+          <Image
+            source={{ uri: bookData.image }}
+            style={{ zIndex: 100, width: 200, height: 300, alignSelf: 'center', marginVertical: 20, top: 100}}
+          />
+          <View style={{ zIndex: 10, paddingTop: 100, paddingHorizontal: 20, borderRadius: 40, backgroundColor: colors.backgroundPrim }}>
+            <Text style={[TextStyles.h1, { color: colors.textPrim }]}>{bookData.titulo}</Text>
 
-        <Text style={[TextStyles.p, { color: colors.textPrim, marginTop: 20 }]}>
-          Sinopse: {bookData.sinopse}
-        </Text>
+            <View style={{ flex:1, flexDirection:'row', justifyContent: 'space-between', alignItems: 'center'}}>
+              <View>
+                <Text style={[TextStyles.p, { color: colors.textSec }]}>Autor: {bookData.autor}</Text>
+                <Text style={[TextStyles.p, { color: colors.textSec }]}>Editora: {bookData.editora}</Text>
+              </View>
+              <Text style={[TextStyles.h2, { color: colors.textPrim}]}>
+                {preco}
+              </Text>
+            </View>
 
-        <Button label="Adicionar ao Carrinho" onPress={() => {}} />
-      </View>
-    </ScrollView>
+            <View style={{flex:1, marginVertical: 10, gap:10}}>
+              {construct_TipoRadioButton(bookData.tipos)}
+            </View>
+
+            <View style={{backgroundColor: colors.backgroundSec, padding: 15, borderRadius:15 }}>
+              <Text style={[TextStyles.h2, { color: colors.textPrim}]}>Sinopse:</Text>
+              <Text style={[TextStyles.p, { color: colors.textPrim}]}>{bookData.sinopse}</Text>
+            </View>
+
+            <Button style={{ borderRadius: 100, marginVertical: 20 }} label={`Adicionar ao carrinho — ${preco}`} onPress={() => { }} />
+            
+          </View>
+        </View>
+      </ScrollView>
+    </ImageBackground>
+    </SafeAreaView>
+    </SafeAreaProvider>
+    </>
   );
 }

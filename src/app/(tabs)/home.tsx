@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -15,11 +15,10 @@ import { useThemeColor } from '@hooks/useThemeColor';
 import TextStyles from '@constants/topography';
 import SearchBar from '@components/SearchBar';
 import { useRouter } from 'expo-router';
+import { construct_livro_categoria, get_livros } from '@api/get_livros';
 
 
-
-
-const livrosCategorias: categoriaTemplate[] = [
+const livrosCategoriasTemplate = [
   {
     id: '1',
     categoria: 'Recomendados',
@@ -190,6 +189,22 @@ const livrosCategorias: categoriaTemplate[] = [
 
 ];
 
+type tiposTemplate = {
+  tipo: string,
+  price: string,
+  quantidade: string
+}
+
+type bookTemplate = {
+  id_livro: string,
+  titulo: string,
+  image: string,
+  sinopse: string,
+  autor: string,
+  editora: string,
+  tipos: tiposTemplate[]
+}
+
 type categoriaTemplate ={
   id: string,
   categoria: string,
@@ -197,31 +212,29 @@ type categoriaTemplate ={
   livros: bookTemplate[]
 }
 
-type bookTemplate = {
-  id: string,
-  titulo: string,
-  image: string,
-  price: string,
-  sinopse: string,
-  autor: string,
-  editora: string,
-  tipo: string
-}
-
 export default function Home() {
+
   const router = useRouter();
   const colors = useThemeColor();
   const [searchActive, setSearchActive] = useState(false);
+  const [livroCategorias, setLivroCategorias] = useState<categoriaTemplate[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const resposta = await construct_livro_categoria();
+      setLivroCategorias(resposta)
+    })();
+  }, []);
 
   const renderLivroCard = (book : bookTemplate) => (
     <TouchableOpacity 
       style={[styles.bookCardCategory, {backgroundColor: colors.backgroundSec}]}
-      key={book.id} 
+      key={book.id_livro} 
       onPress={() =>
         router.push({
           pathname: '/produto/[produto]',
           params: { 
-            produto: book.id.toString(),     // corresponde ao nome do arquivo [produto].tsx
+            produto: book.id_livro.toString(),     // corresponde ao nome do arquivo [produto].tsx
             book: JSON.stringify(book)       // envia os dados do livro
           },
         })
@@ -232,7 +245,7 @@ export default function Home() {
             {book.titulo}
         </Text>
         <Text style={[ { color: colors.textPrim, fontWeight: 200 }, TextStyles.h3, styles.bookPrice]} numberOfLines={2}>
-            {Number(book.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+            {Number(book.tipos[1].price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </Text>
     </TouchableOpacity>
   );
@@ -243,7 +256,7 @@ export default function Home() {
         router.push({
           pathname: '/produto/[produto]',
           params: { 
-            produto: book.id.toString(),
+            produto: book.id_livro.toString(),
             book: JSON.stringify(book)      
           },
         })
@@ -274,7 +287,7 @@ export default function Home() {
             ? renderLivrosRecomendados(item)
             : renderLivroCard(item)
         }
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id_livro}
         horizontal
         nestedScrollEnabled
         showsHorizontalScrollIndicator={false}
@@ -288,6 +301,8 @@ export default function Home() {
     // fetchLivros(query)
   };
 
+
+
   return (
     <SafeAreaProvider>
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
@@ -299,17 +314,18 @@ export default function Home() {
             <View style={{ paddingHorizontal: 16, marginTop: 10 }}>
                 <SearchBar/>
             </View>
+            
+          {/* <Text selectable style={{ color: colors.textPrim }}>{JSON.stringify(catcatcat)}</Text> */}
 
             <View style={styles.section}>
 
               <SectionList
-                sections={livrosCategorias}
+                sections={livroCategorias}
                 keyExtractor={(item, index) => item.id || index.toString()}
                 renderSectionHeader={() => null}
                 renderItem={({section}) => renderSection(section)}
               />
             </View>
-            
             </ScrollView>
         </SafeAreaView>
     </SafeAreaProvider>
