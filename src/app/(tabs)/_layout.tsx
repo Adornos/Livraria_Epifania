@@ -24,34 +24,34 @@ export default function TabLayout(){
         }}
         >
             <Tabs.Screen 
-            name="home" 
-            options={{tabBarIcon: ({ color, size, focused }) => (
-                <Ionicons
-                name={focused ? "home" : "home-outline"}
-                size={size}
-                color={color}
-                />
-            )}}
+                name="home" 
+                options={{tabBarIcon: ({ color, size, focused }) => (
+                    <Ionicons
+                    name={focused ? "home" : "home-outline"}
+                    size={size}
+                    color={color}
+                    />
+                )}}
             />
             <Tabs.Screen 
-            name="profile" 
-            options={{tabBarIcon: ({ color, size, focused }) => (
-                <Ionicons
-                name={focused ? "person" : "person-outline"}
-                size={size}
-                color={color}
-                />
-            ),}}
+                name="profile" 
+                options={{tabBarIcon: ({ color, size, focused }) => (
+                    <Ionicons
+                    name={focused ? "person" : "person-outline"}
+                    size={size}
+                    color={color}
+                    />
+                ),}}
             />
             <Tabs.Screen 
-            name="cart" 
-            options={{tabBarIcon: ({ color, size, focused }) => (
-                <Ionicons
-                name={focused ? "cart" : "cart-outline"}
-                size={size}
-                color={color}
-                />
-            )}}
+                name="cart" 
+                options={{tabBarIcon: ({ color, size, focused }) => (
+                    <Ionicons
+                    name={focused ? "cart" : "cart-outline"}
+                    size={size}
+                    color={color}
+                    />
+                )}}
             />
         </Tabs>
     );

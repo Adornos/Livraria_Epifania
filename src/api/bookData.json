@@ -1,0 +1,15 @@
+{
+  "id_livro": 10,
+  "isbn": "9788576573135",
+  "titulo": "Duna",
+  "data": "1965-08-01",
+  "autor": "Frank Herbert",
+  "sinopse": "Em um futuro distante, a disputa pelo controle do planeta desértico Arrakis, única fonte da especiaria melange, coloca famílias nobres em guerra. A jornada de Paul Atreides é uma das mais épicas da ficção científica.",
+  "image": "https://books.google.com/books/content?id=QKQPEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+  "editora": "Editora Aurora",
+  "categorias": ["Ficção Científica"],
+  "tipos": [
+    { "tipo": "Brochura", "price": 100, "quantidade": 15 },
+    { "tipo": "Capa dura", "price": 150, "quantidade": 7 }
+  ]
+}

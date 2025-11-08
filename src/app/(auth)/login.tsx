@@ -28,13 +28,15 @@ export default function Login() {
       alert("Preencha os campos obrigatórios!");
       return null;
     } 
+    
     const result = await login_usuario(email, senha);
-      if (result.success) {
-        // alert('Deu certo jesus!');
-        router.replace({pathname: '/home', params: {id : result.id_leitor}}); // redireciona para login, se quiser
-      } else {
-        alert(`"Erro", ${result.message || result.error || "Desconhecido"}`);
-      }
+
+    if (result.success) {
+      // alert('Deu certo jesus!');
+      router.replace({pathname: '/home', params: {id : result.id_leitor}}); // redireciona para login, se quiser
+    } else {
+      alert(`"Erro", ${result.message || result.error || "Desconhecido"}`);
+    }
   
   };
 
@@ -42,7 +44,7 @@ export default function Login() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
-        <View style={{ width: '86%', flex:1, justifyContent: 'space-between', flexDirection: 'column', alignSelf: 'center'}}>
+        <View style={{ width: '86%', flex:1, justifyContent: 'space-evenly', flexDirection: 'column', alignSelf: 'center'}}>
           <Logo style={{marginVertical: 64}}/>
           <View style={{gap: 16, marginBottom: 64}}>
             <Input value={email} onChangeText={setEmail} placeholder="Email" keyboardType="email-address" />

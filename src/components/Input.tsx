@@ -40,6 +40,7 @@ const EpifaniaTextInput = ({
           onChangeText={changeText}
           style={{
             ...T.p,
+            color: C.textPrim,
             backgroundColor: C.backgroundSec,
             height: 50,
             borderRadius: 8,

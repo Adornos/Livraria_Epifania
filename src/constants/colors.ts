@@ -18,7 +18,7 @@ const Colors = {
     backgroundTert: '#FFFFFF',
     backgroundBook: '#EDA72D',
     textPrim: '#121212',
-    textSec: '#B0B4BC',
+    textSec: '#525457ff',
     primaryButton: '#980225',
     iconText: '#F3E8CC',
     textBtn: '#FFFFFF',
