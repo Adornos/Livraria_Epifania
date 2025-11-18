@@ -15,7 +15,7 @@ import { useThemeColor } from '@hooks/useThemeColor';
 import TextStyles from '@constants/topography';
 import SearchBar from '@components/SearchBar';
 import { useRouter } from 'expo-router';
-import { construct_livro_categoria, get_livros } from '@api/get_livros';
+import { construct_livro_categoria, get_livros } from '@api/livrosActions';
 
 
 const livrosCategoriasTemplate = [
@@ -235,7 +235,7 @@ export default function Home() {
           pathname: '/produto/[produto]',
           params: { 
             produto: book.id_livro.toString(),     // corresponde ao nome do arquivo [produto].tsx
-            book: JSON.stringify(book)       // envia os dados do livro
+            book: JSON.stringify(book)             // envia os dados do livro
           },
         })
       }
@@ -326,6 +326,8 @@ export default function Home() {
                 renderItem={({section}) => renderSection(section)}
               />
             </View>
+            
+          <Text>{ }</Text>
             </ScrollView>
         </SafeAreaView>
     </SafeAreaProvider>

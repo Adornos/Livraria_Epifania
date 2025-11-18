@@ -4,14 +4,14 @@ import { router } from 'expo-router';
 import { useThemeColor } from '@hooks/useThemeColor';
 import Logo from '@components/Logo';
 
-import { construct_livro_categoria, get_livros } from '@api/get_livros';
+import { construct_livro_categoria, get_livros } from '@api/livrosActions';
 
 export default function Index() {
 
   const colors = useThemeColor();
 
   useEffect(() => {
-    const logged = true; // substituir por checagem real
+    const logged = false; // substituir por checagem real
     setTimeout(() => {
       router.replace(logged ? '(tabs)/home' : '(auth)/login');
     }, 0);

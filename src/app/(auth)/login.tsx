@@ -8,7 +8,8 @@ import { router } from 'expo-router';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from 'expo-router';
 import T from '@constants/topography';
-import { login_usuario } from '@api/login_usuario';
+import { login_usuario } from '@api/userActions';
+import { saveUserData } from '@api/localDataActions';
 
 type Login = {
   email: string;
@@ -32,8 +33,15 @@ export default function Login() {
     const result = await login_usuario(email, senha);
 
     if (result.success) {
+      
+      console.log(JSON.stringify(result.usuario));
+      saveUserData(result.usuario);
       // alert('Deu certo jesus!');
-      router.replace({pathname: '/home', params: {id : result.id_leitor}}); // redireciona para login, se quiser
+      router.replace({
+        pathname: '/home',
+        params: { id: result.id_leitor, }
+      });
+      // redireciona para login, se quiser
     } else {
       alert(`"Erro", ${result.message || result.error || "Desconhecido"}`);
     }

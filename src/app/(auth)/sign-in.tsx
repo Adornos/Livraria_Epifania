@@ -11,7 +11,7 @@ import T from '@constants/topography';
 // import Collapsible from 'react-native-collapsible/';
 // import Accordion from 'react-native-collapsible/Accordion';
 import { useState } from 'react';
-import { set_usuario } from '@api/set_usuario';
+import { set_usuario } from '@api/userActions';
 
 type Usuario = {
   nome: string;
