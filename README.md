@@ -18,6 +18,9 @@
 - Realizar a conexão com o banco de dados ✅
 - Configurar Layout e Paletas ✅
 - Melhorar o tratamento de dados: 
-  - Fazer armazenagem local de dados  
-  - Adicionar Algoritmo de livros recomendados
-  - Sincronizar dados do usuário
+  - Fazer armazenagem local de dados ✅
+  - Adicionar Algoritmo de livros recomendados ✅
+  - Sincronizar dados do usuário ✅
+  - Adicionar ações do carrinho
+  - Adicionar imagem de perfil (opcional)
+  - Upload de API
