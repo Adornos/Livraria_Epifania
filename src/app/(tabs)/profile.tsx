@@ -1,37 +1,121 @@
-import { ScrollView, Image, View } from 'react-native';
-import Input from '@components/InputProfile';
+import { useState, useEffect } from 'react';
+import { ScrollView, Image, View, KeyboardAvoidingView, Platform } from 'react-native';
+import InputProfile from '@components/InputProfile';
 import Button from '@components/Button';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { getUserData, debugAsyncStorage } from '@api/localDataActions';
+import { update_usuario } from '@api/userActions';
+update_usuario
+
+type userDataTemplate = {
+  id_leitor?: number;
+  nome?: string | null;
+  email?: string | null;
+  senha?: string | null;
+  data?: string | null;
+  telefone?: string | null;
+  cpf?: string | null;
+  estado?: string | null;
+  cidade?: string | null;
+  bairro?: string | null;
+  rua?: string | null;
+  numero_casa?: string | null;
+  complemento?: string | null;
+};
+
+
 
 export default function Profile() {
-  const colors = useThemeColor();
 
+  const colors = useThemeColor();
+  const [userData, setUserData] = useState<userDataTemplate>({
+  id_leitor: undefined,
+  nome: null,
+  email: null,
+  senha: null,
+  data: null,
+  telefone: null,
+  cpf: null,
+  estado: null,
+  cidade: null,
+  bairro: null,
+  rua: null,
+  numero_casa: null,
+  complemento: null
+  });
+
+  const fillUserData = async () => {
+    const data = await getUserData();
+    setUserData(prev => ({
+    ...prev,
+    ...data
+    }));
+  }
+
+  useEffect(() => {
+    fillUserData()
+    debugAsyncStorage()
+  }, [])
+  
+
+  const handleChange = (key: keyof userDataTemplate, value: string) => {
+  setUserData(prev => ({
+    ...prev,
+    [key]: value
+  }));
+  };
+
+  const validarFormulario = async () => {
+
+    if (!userData.nome || !userData.email || !userData.senha) {
+      alert("Preencha os campos obrigatórios!");
+      return null;
+    } 
+
+    const result = await update_usuario(userData);
+      if (result.success) {
+        alert('Alterações realizadas com sucesso!');
+      } else {
+        alert('Erro durante a alteração: ' + (result.error || 'Desconhecido'));
+      }
+ 
+  };
+ 
   return (
     <SafeAreaProvider>
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
-            <ScrollView style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
-            <Image
-                source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}
-                style={{ width: 120, height: 120, borderRadius: 60, alignSelf: 'center', margin: 20 }}
-            />
-            <View style={{width: '80%', gap: 16, marginHorizontal: 'auto'}}>
-                <Input placeholder="Nome" />
-                <Input placeholder="Sobrenome" />
-                <Input placeholder="Telefone" keyboardType="phone-pad" />
-                <Input placeholder="Email" keyboardType="email-address" />
-                <Input placeholder="Senha" secureTextEntry />
-                <Input placeholder="CPF" />
-                <Input placeholder="Estado" />
-                <Input placeholder="Cidade" />
-                <Input placeholder="Bairro" />
-                <Input placeholder="Rua" />
-                <Input placeholder="Número" />
-                <Input placeholder="Complemento" />
-            </View>
-            <Button label="Salvar Alterações" onPress={() => {}} />
-            </ScrollView>
-        </SafeAreaView>
+      <KeyboardAvoidingView
+        style={{ flex: 1, backgroundColor: colors.backgroundPrim}}
+        behavior={"padding"}
+      >
+        <ScrollView
+          style={{ flex: 1, backgroundColor: colors.backgroundPrim}}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={{flex: 1, alignItems: 'center', marginVertical: 48}}>
+
+          <Image
+              source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}
+              style={{ width: 120, height: 120, borderRadius: 60, alignSelf: 'center', margin: 20 }}
+          />
+          <View style={{width: '80%', gap: 0, marginHorizontal: 'auto', marginBottom: 16}}>
+              <InputProfile placeholder="Nome"        onChangeText={(text) => handleChange('nome', text)} value={userData?.nome ?? ''}/>
+              <InputProfile placeholder="Telefone"    onChangeText={(text) => handleChange('telefone', text)} value={userData?.telefone ?? ''} keyboardType="phone-pad" />
+              <InputProfile placeholder="Email"       onChangeText={(text) => handleChange('email', text)} value={userData?.email ?? ''} keyboardType="email-address" />
+              <InputProfile placeholder="Senha"       onChangeText={(text) => handleChange('senha', text)} value={userData?.senha ?? ''} secureTextEntry />
+              <InputProfile placeholder="CPF"         onChangeText={(text) => handleChange('cpf', text)} value={userData?.cpf ?? ''} />
+              <InputProfile placeholder="Estado"      onChangeText={(text) => handleChange('estado', text)} value={userData?.estado ?? ''} />
+              <InputProfile placeholder="Cidade"      onChangeText={(text) => handleChange('cidade', text)} value={userData?.cidade ?? ''} />
+              <InputProfile placeholder="Bairro"      onChangeText={(text) => handleChange('bairro', text)} value={userData?.bairro ?? ''} />
+              <InputProfile placeholder="Rua"         onChangeText={(text) => handleChange('rua', text)} value={userData?.rua ?? ''} />
+              <InputProfile placeholder="Número"      onChangeText={(text) => handleChange('numero_casa', text)} value={userData?.numero_casa ?? ''} />
+              <InputProfile placeholder="Complemento" onChangeText={(text) => handleChange('complemento', text)} value={userData?.complemento ?? ''} />
+          </View>
+          <Button label="Salvar Alterações" style={{ width: '50%', borderRadius: 50 }} onPress={() => (validarFormulario())} />
+          
+          </View>
+        </ScrollView>
+        </KeyboardAvoidingView>
     </SafeAreaProvider>
   );
 }

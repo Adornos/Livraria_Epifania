@@ -1,0 +1,44 @@
+import axios from "axios";
+
+const BASE_URL = "http://192.168.1.68/api_epifania";
+
+export const login_usuario = async (email, senha) => {
+  const dados = { email: email, senha: senha };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/login_user.php`, dados, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    return response.data; // Retorna o objeto do PHP
+  } catch (error) {
+    console.error("Erro ao fazer login:", error);
+    return { success: false, error: "Falha na requisição" };
+  }
+};
+
+export const set_usuario = async (novoUsuario) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/set_user.php`, novoUsuario, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("Resposta do servidor:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao enviar usuário:", error);
+    return { error: "Falha na requisição" };
+  }
+};
+
+export const update_usuario = async (dados) => {
+    try {
+    const response = await axios.post(`${BASE_URL}/update_user.php`, dados, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("Resposta do servidor:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao realizar alteração:", error);
+    return { error: "Falha na requisição" };
+  }
+}

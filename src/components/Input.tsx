@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TextInput, KeyboardAvoidingView, View } from "react-native";
 import { useThemeColor } from "@hooks/useThemeColor";
-import T from "../constants/topography";
+import T from "@constants/topography";
 
 type EpifaniaTextInputProps = {
   placeholder: string;

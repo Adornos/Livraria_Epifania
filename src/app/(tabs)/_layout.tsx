@@ -1,8 +1,10 @@
 import { Tabs } from "expo-router";
 import { useThemeColor } from "@hooks/useThemeColor";
 import { Ionicons } from "@expo/vector-icons";
+import { useLocalSearchParams } from "expo-router";
 
 export default function TabLayout(){
+
 
     const Colors = useThemeColor();
 
@@ -20,7 +22,7 @@ export default function TabLayout(){
             tabBarHideOnKeyboard: true,
             sceneStyle:{
                 backgroundColor: Colors.backgroundPrim
-            },
+                },
         }}
         >
             <Tabs.Screen 
