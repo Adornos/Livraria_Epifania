@@ -13,14 +13,17 @@
 
 ## Alterações a serem feitas
 
-- Finalizar a construção das páginas do usuário ✅
-- Finalizar a construção de todas as páginas ✅
-- Realizar a conexão com o banco de dados ✅
-- Configurar Layout e Paletas ✅
+- ✅ Finalizar a construção das páginas do usuário 
+- ✅ Finalizar a construção de todas as páginas 
+- ✅ Realizar a conexão com o banco de dados 
+- ✅ Configurar Layout e Paletas 
 - Melhorar o tratamento de dados: 
-  - Fazer armazenagem local de dados ✅
-  - Adicionar Algoritmo de livros recomendados ✅
-  - Sincronizar dados do usuário ✅
-  - Adicionar ações do carrinho
+  - ✅ Fazer armazenagem local de dados 
+  - ✅ Adicionar Algoritmo de livros recomendados 
+  - ✅ Sincronizar dados do usuário 
+  - Sincronizar e armazenar o login localmente
+    - Persistir Login
+  - ✅ Adicionar ações do carrinho
+  - Adicionar ações de compra
   - Adicionar imagem de perfil (opcional)
-  - Upload de API
+  - ✅ Upload de API

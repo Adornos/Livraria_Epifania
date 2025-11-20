@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, KeyboardAvoidingView } from 'react-native';
 import Input from '@components/Input';
 import Button from '@components/Button';
 import Logo from '@components/Logo';
@@ -51,17 +51,17 @@ export default function Login() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
+      <KeyboardAvoidingView behavior='padding' style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
         <View style={{ width: '86%', flex:1, justifyContent: 'space-evenly', flexDirection: 'column', alignSelf: 'center'}}>
           <Logo style={{marginVertical: 64}}/>
           <View style={{gap: 16, marginBottom: 64}}>
             <Input value={email} onChangeText={setEmail} placeholder="Email" keyboardType="email-address" />
             <Input value={senha} onChangeText={setSenha} placeholder="Senha" secureTextEntry />
-            <Button label="Entrar" onPress={() => (validarFormulario())} />
+            <Button label="Fazer Login" onPress={() => (validarFormulario())} />
             <Link href='/sign-in' style={[{color: colors.textPrim}, T.p, T.center]}>Criar Conta</Link>
           </View>
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     </SafeAreaProvider>
   );
 }

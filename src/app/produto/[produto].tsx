@@ -9,6 +9,8 @@ import Button from '@components/Button';
 import { useEffect, useState } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+import { addItemToCart } from '@api/localDataActions';
+
 type tiposTemplate = {
   tipo: string,
   price: string,
@@ -40,11 +42,26 @@ export default function Produto() {
     Number(bookData.tipos[tipoRadio].price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
   ), [tipoRadio])
 
-  const construct_TipoRadioButton = (tiposArray : tiposTemplate[]) => {
-    
+  const addToCart = () => {
+    const tipoSelecionado = bookData.tipos[tipoRadio];
+
+    const item = {
+      id_livro: bookData.id_livro,
+      titulo: bookData.titulo,
+      image: bookData.image,
+      tipo: tipoSelecionado.tipo,
+      price: Number(tipoSelecionado.price),
+      quantidade: 1,          // quantidade que o usuário está comprando
+      estoque: tipoSelecionado.quantidade  // estoque disponível
+    };
+
+    addItemToCart(item);
+  };
+
+  const construct_TipoRadioButton = (tiposArray : tiposTemplate[]) => {    
     return (
           tiposArray.map((tipos, i) => (
-            <Pressable onPress={() => setTipoRadio(i.toString()) } style={{flex:1, flexDirection:'row', justifyContent:'space-between', alignItems: 'center', backgroundColor: colors.backgroundSec, borderRadius: 50, borderWidth: 1, borderColor: colors.backgroundTert}}>
+            <Pressable key={i} onPress={() => setTipoRadio(i.toString()) } style={{flex:1, flexDirection:'row', justifyContent:'space-between', alignItems: 'center', backgroundColor: colors.backgroundSec, borderRadius: 50, borderWidth: 1, borderColor: colors.backgroundTert}}>
               <RadioButton.Item
                 value={i.toString()}
                 label={tipos.tipo}
@@ -60,7 +77,6 @@ export default function Produto() {
           ))
     )
   }
-
 
   return (
     <>
@@ -79,7 +95,7 @@ export default function Produto() {
             source={{ uri: bookData.image }}
             style={{ zIndex: 100, width: 200, height: 300, alignSelf: 'center', marginVertical: 20, top: 100}}
           />
-          <View style={{ zIndex: 10, paddingTop: 100, paddingHorizontal: 20, borderRadius: 40, backgroundColor: colors.backgroundPrim }}>
+          <View style={{ zIndex: 10, paddingTop: 100, paddingHorizontal: 20, borderTopLeftRadius: 40, borderTopRightRadius: 40, backgroundColor: colors.backgroundPrim }}>
             <Text style={[TextStyles.h1, { color: colors.textPrim }]}>{bookData.titulo}</Text>
 
             <View style={{ flex:1, flexDirection:'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -98,10 +114,10 @@ export default function Produto() {
 
             <View style={{backgroundColor: colors.backgroundSec, padding: 15, borderRadius:15 }}>
               <Text style={[TextStyles.h2, { color: colors.textPrim}]}>Sinopse:</Text>
-              <Text style={[TextStyles.p, { color: colors.textPrim}]}>{bookData.sinopse}</Text>
+              <Text style={[TextStyles.p, { color: colors.textPrim, textAlign: "justify"}]}>{bookData.sinopse}</Text>
             </View>
 
-            <Button style={{ borderRadius: 100, marginVertical: 20 }} label={`Adicionar ao carrinho — ${preco}`} onPress={() => { }} />
+            <Button style={{ borderRadius: 100, marginVertical: 20 }} label={`Adicionar ao carrinho — ${preco}`} onPress={() => {addToCart()}} />
             
           </View>
         </View>
