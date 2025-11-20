@@ -53,7 +53,7 @@ export const construct_livro_categoria = async () => {
       livros: livros.filter(livro => livro.categorias.includes(cat.categoria))
     }))
 
-    console.log('Resposta do construtor: ', livroCategoria)
+    // console.log('Resposta do construtor: ', livroCategoria)
     return livroCategoria;
 
   } catch (error) {

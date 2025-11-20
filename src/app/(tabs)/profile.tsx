@@ -76,6 +76,7 @@ export default function Profile() {
     const result = await update_usuario(userData);
       if (result.success) {
         alert('Alterações realizadas com sucesso!');
+        
       } else {
         alert('Erro durante a alteração: ' + (result.error || 'Desconhecido'));
       }

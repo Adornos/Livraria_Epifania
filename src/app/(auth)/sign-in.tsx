@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView } from 'react-native';
 import Input from '@components/Input';
 import Button from '@components/Button';
 import Logo from '@components/Logo';
@@ -80,7 +80,7 @@ export default function Sign() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
+      <KeyboardAvoidingView behavior='padding' style={{ flex: 1, backgroundColor: colors.backgroundPrim }}>
         <ScrollView style={{ backgroundColor: colors.backgroundPrim}}>
           <View style={{ width: '86%', flex:1, flexDirection: 'column', marginHorizontal: 'auto', gap: 16}}>
             
@@ -104,7 +104,7 @@ export default function Sign() {
 
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     </SafeAreaProvider>
   );
 }
