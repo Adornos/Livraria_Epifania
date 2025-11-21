@@ -4,9 +4,10 @@ import InputProfile from '@components/InputProfile';
 import Button from '@components/Button';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { getUserData, debugAsyncStorage } from '@api/localDataActions';
+import { getUserData, debugAsyncStorage, userLoginTimeOut } from '@api/localDataActions';
 import { update_usuario } from '@api/userActions';
-update_usuario
+import { router } from 'expo-router';
+import Index from '..';
 
 type userDataTemplate = {
   id_leitor?: number;
@@ -83,6 +84,11 @@ export default function Profile() {
  
   };
  
+  const executarTimeOut = async () => {
+    userLoginTimeOut(true);
+    router.navigate('/')
+  }
+
   return (
     <SafeAreaProvider>
       <KeyboardAvoidingView
@@ -93,12 +99,13 @@ export default function Profile() {
           style={{ flex: 1, backgroundColor: colors.backgroundPrim}}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={{flex: 1, alignItems: 'center', marginVertical: 48}}>
-
-          <Image
-              source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}
-              style={{ width: 120, height: 120, borderRadius: 60, alignSelf: 'center', margin: 20 }}
-          />
+          <View style={{ flex: 1, alignItems: 'center', marginVertical: 48 }}>
+            
+              <Image
+                  source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}
+                  style={{ width: 120, height: 120, borderRadius: 60, alignSelf: 'center', margin: 20 }}
+              />
+          
           <View style={{width: '80%', gap: 0, marginHorizontal: 'auto', marginBottom: 16}}>
               <InputProfile placeholder="Nome"        onChangeText={(text) => handleChange('nome', text)} value={userData?.nome ?? ''}/>
               <InputProfile placeholder="Telefone"    onChangeText={(text) => handleChange('telefone', text)} value={userData?.telefone ?? ''} keyboardType="phone-pad" />
@@ -113,7 +120,7 @@ export default function Profile() {
               <InputProfile placeholder="Complemento" onChangeText={(text) => handleChange('complemento', text)} value={userData?.complemento ?? ''} />
           </View>
           <Button label="Salvar Alterações" style={{ width: '50%', borderRadius: 50 }} onPress={() => (validarFormulario())} />
-          
+          <Button label="Sair da Conta" style={{backgroundColor: '#0000', width: 'auto' }} onPress={() => (executarTimeOut())}/>    
           </View>
         </ScrollView>
         </KeyboardAvoidingView>
