@@ -17,13 +17,15 @@
 - ✅ Finalizar a construção de todas as páginas 
 - ✅ Realizar a conexão com o banco de dados 
 - ✅ Configurar Layout e Paletas 
+- Configurar o fluco de layout
 - Melhorar o tratamento de dados: 
   - ✅ Fazer armazenagem local de dados 
   - ✅ Adicionar Algoritmo de livros recomendados 
   - ✅ Sincronizar dados do usuário 
-  - Sincronizar e armazenar o login localmente
-    - Persistir Login
+  - ✅Sincronizar e armazenar o login localmente
+    - ✅Persistir Login
   - ✅ Adicionar ações do carrinho
+  - Adicionar carrinho ao banco de dados (opcional porem importante)
   - Adicionar ações de compra
   - Adicionar imagem de perfil (opcional)
   - ✅ Upload de API

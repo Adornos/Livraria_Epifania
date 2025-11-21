@@ -88,3 +88,43 @@ export const removeCartItem = async (index) => {
         console.log("Erro ao excluir item do carrinho", e);
     }
 };
+
+// Persistencia de login
+
+export const setUserLoginTrue = async () => {
+    try {
+        const d = new Date()
+        await AsyncStorage.setItem('@userLogin', JSON.stringify({ state: true, date: d.toISOString() }))
+    } catch (e) {
+        console.log("Erro ao logar localmente", e);
+    }
+}
+
+export const userLoginTimeOut = async (noTrigger) => {
+    try {
+
+        const timeNow = new Date()
+        const timeOfLogin = new Date( await getUserLoginState(false).date)
+        const timeDiff = (timeNow - timeOfLogin) / 1000 * 60 * 60 * 24
+
+        if (timeDiff >= 2 || noTrigger) {
+            await AsyncStorage.clear()
+            await AsyncStorage.setItem('@userLogin', JSON.stringify({ state: false}))
+        }
+        console.log("Estado do login pós TimeOut", await getUserLoginState());
+
+    } catch (e) {
+        console.log("Erro ao invalidar prazo", e);
+    }
+}
+
+export const getUserLoginState = async (showState = true) => {
+    try {
+        const result = await AsyncStorage.getItem('@userLogin')
+        !showState && console.log("Estado do login", result);
+        return result != null ? JSON.parse(result) : null;
+        
+    } catch (e) {
+        console.log("Erro ao resgatar login local", e)
+    }
+}
