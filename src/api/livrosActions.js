@@ -24,7 +24,20 @@ export const get_categoria = async () => {
     // console.log("Resposta do servidor:", response.data); // Usar apenas para debug
     return response.data;
   } catch (error) {
-    console.error("Erro ao enviar usuário:", error.message);
+    console.error("Erro ao receber categorias:", error.message);
+    return { success: false, error: error.message };
+  }
+}
+
+export const get_tipos = async () => {
+  try {
+    const response = await axios.post(`${BASE_URL}/get_tipos.php`, {
+      headers: { "Content-Type": "application/json" },
+    });
+    // console.log("Resposta do servidor:", response.data); // Usar apenas para debug
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao receber tipos:", error.message);
     return { success: false, error: error.message };
   }
 }

@@ -1,34 +1,44 @@
 import { useState, useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import TextStyles from '@constants/topography';
 import Button from '@components/Button';
 
 import { getCartItems, flushCartItems, removeCartItem } from '@api/localDataActions';
+import { operateCart } from '@api/cartActions';
 
 import CartItem, {CartItemTemplate} from '@components/CartItem';
+import { router } from 'expo-router';
 
 export default function Cart() {
 
   const colors = useThemeColor();
   const [items, setItems] = useState<CartItemTemplate[]>([]);
 
-  async function load() {
+  async function loadCart() {
     const data = await getCartItems();
     if (data) setItems(data);
   }
 
   useEffect(() => {
-    load();
+    loadCart();
   }, []);
 
+  async function handleCartOperation() {
+    const result = await operateCart();
+    if (result.success) {
+      await flushCartItems();
+      loadCart();
+      router.navigate('/home')
+      Alert.alert("Compra Realizada!")
+    }
+  }
 
 function handleRemove(index: number) {
   removeCartItem(index)
   setItems(prev => prev.filter((_, i) => i !== index));
 }
-
 
 function handleIncrease(index: number) {
   setItems(prev =>
@@ -92,7 +102,7 @@ function handleDecrease(index: number) {
           />
           }
 
-          <Button label="Comprar" onPress={() => {}} />
+          <Button label="Comprar" onPress={() => {handleCartOperation()}} />
           {/* <Text style={{color: colors.textPrim}}>{ JSON.stringify(items)}</Text> */}
         </View>
       </SafeAreaView>
