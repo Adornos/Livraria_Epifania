@@ -69,12 +69,15 @@ export default function Profile() {
 
   const validarFormulario = async () => {
 
-    if (!userData.nome || !userData.email || !userData.senha) {
+    const data = emptyToNull(userData)
+
+    if (!data.nome || !data.email || !data.senha) {
       alert("Preencha os campos obrigatórios!");
       return null;
     } 
 
-    const result = await update_usuario(userData);
+    console.log('dadosUsuraio:', data);
+    const result = await update_usuario(data);
       if (result.success) {
         alert('Alterações realizadas com sucesso!');
         
@@ -87,6 +90,12 @@ export default function Profile() {
   const executarTimeOut = async () => {
     userLoginTimeOut(true);
     router.navigate('/')
+  }
+
+  function emptyToNull(obj : object) {
+    return Object.fromEntries(
+      Object.entries(obj).map(([k, v]) => [k, v === "" ? null : v])
+    );
   }
 
   return (

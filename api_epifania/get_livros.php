@@ -27,7 +27,7 @@ try {
             l.image,
             e.nome AS editora,
             GROUP_CONCAT(DISTINCT c.categoria SEPARATOR ', ') AS categorias,
-            GROUP_CONCAT(DISTINCT CONCAT(t.tipo, '|', pl.preco, '|', el.quantidade) SEPARATOR ';') AS tipos_info
+            GROUP_CONCAT(DISTINCT CONCAT(t.tipo, '|', pl.preco, '|', el.estoque) SEPARATOR ';') AS tipos_info
         FROM livro l
         LEFT JOIN editora e ON l.editora = e.id_editora
         LEFT JOIN livro_categoria lc ON l.id_livro = lc.id_livro
@@ -50,11 +50,11 @@ try {
         if ($row['tipos_info']) {
             $tiposArray = explode(';', $row['tipos_info']);
             foreach($tiposArray as $tipoStr){
-                list($tipo, $preco, $quantidade) = explode('|', $tipoStr);
+                list($tipo, $preco, $estoque) = explode('|', $tipoStr);
                 $tipos[] = [
                     'tipo' => $tipo,
                     'price' => (float)$preco,
-                    'quantidade' => (int)$quantidade
+                    'estoque' => (int)$estoque
                 ];
             }
         }

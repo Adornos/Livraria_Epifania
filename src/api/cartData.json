@@ -1,0 +1,33 @@
+[
+  {
+    "id_livro": 10,
+    "titulo": "Duna",
+    "image": "https://m.media-amazon.com/images/I/81zN7udGRUL._SL1500_.jpg",
+    "tipo": "Capa dura",
+    "price": 150,
+    "quantidade": 1,
+    "estoque": 7
+  },
+  {
+    "id_livro": 10,
+    "titulo": "Duna",
+    "image": "https://m.media-amazon.com/images/I/81zN7udGRUL._SL1500_.jpg",
+    "tipo": "Brochura",
+    "price": 100,
+    "quantidade": 1,
+    "estoque": 15
+  },
+  {
+    "id_livro": 10,
+    "price": 150,
+    "tipo": 1,
+    "quantidade": 1
+  },
+  {
+    "id_livro": 10,
+    "price": 100,
+    "tipo": 2,
+    "quantidade": 1
+  }
+]
+
