@@ -5,7 +5,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import TextStyles from '@constants/topography';
 import Button from '@components/Button';
 
-import { getCartItems, flushCartItems, removeCartItem } from '@api/localDataActions';
+import { getCartItems, flushCartItems, removeCartItem, updateCartItems } from '@api/localDataActions';
 import { operateCart } from '@api/cartActions';
 
 import CartItem, {CartItemTemplate} from '@components/CartItem';
@@ -21,11 +21,19 @@ export default function Cart() {
     if (data) setItems(data);
   }
 
-  useEffect(() => {
+  useEffect(() => { // Carregamento Inicial
     loadCart();
   }, []);
 
+  useEffect(() => { // Carregamento após alterações
+    const timeout = setTimeout(() => {
+      updateCartItems(items)
+    }, 300);
+    return () => clearTimeout(timeout)
+  }, [items])
+
   async function handleCartOperation() {
+
     const result = await operateCart();
     if (result.success) {
       await flushCartItems();

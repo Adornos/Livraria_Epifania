@@ -25,14 +25,13 @@ INSERT INTO `categoria` (`id`, `categoria`) VALUES
 CREATE TABLE IF NOT EXISTS `compras` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
-  `cpf_leitor` char(11) NOT NULL,
-  `data` datetime NOT NULL,
+  `cpf_leitor` varchar(15) NOT NULL DEFAULT '',
+  `data` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`Id`),
   KEY `idx_usuario_cpf` (`id_usuario`,`cpf_leitor`),
   KEY `fk_compras_leitor_cpf` (`cpf_leitor`),
-  CONSTRAINT `fk_compras_leitor_cpf` FOREIGN KEY (`cpf_leitor`) REFERENCES `leitor` (`cpf`),
   CONSTRAINT `fk_compras_leitor_id` FOREIGN KEY (`id_usuario`) REFERENCES `leitor` (`id_leitor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE IF NOT EXISTS `editora` (
@@ -88,47 +87,49 @@ INSERT INTO `estado` (`id_estado`, `nome`, `sigla`) VALUES
 CREATE TABLE IF NOT EXISTS `estoque_livro` (
   `id_livro` int(11) NOT NULL,
   `id_tipo` int(11) NOT NULL,
-  `quantidade` int(11) NOT NULL DEFAULT 0,
+  `estoque` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_livro`,`id_tipo`),
   KEY `fk_estoque_tipo` (`id_tipo`),
   CONSTRAINT `fk_estoque_livro` FOREIGN KEY (`id_livro`) REFERENCES `livro` (`id_livro`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_estoque_tipo` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_livro` (`id_tipo`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `estoque_livro` (`id_livro`, `id_tipo`, `quantidade`) VALUES
-	(10, 1, 7),
-	(10, 2, 15),
-	(11, 1, 6),
-	(11, 2, 12),
-	(12, 1, 5),
-	(12, 2, 10),
-	(13, 1, 5),
-	(13, 2, 8),
-	(14, 1, 6),
-	(14, 2, 10),
-	(15, 1, 7),
-	(15, 2, 12),
-	(16, 1, 5),
-	(16, 2, 9),
-	(17, 1, 10),
-	(17, 2, 15),
-	(18, 1, 8),
-	(18, 2, 12),
-	(19, 1, 9),
-	(19, 2, 14),
-	(20, 1, 7),
-	(20, 2, 10);
+INSERT INTO `estoque_livro` (`id_livro`, `id_tipo`, `estoque`) VALUES
+	(10, 1, 69),
+	(10, 2, 96),
+	(11, 1, 49),
+	(11, 2, 90),
+	(12, 1, 49),
+	(12, 2, 58),
+	(13, 1, 50),
+	(13, 2, 80),
+	(14, 1, 60),
+	(14, 2, 100),
+	(15, 1, 70),
+	(15, 2, 120),
+	(16, 1, 50),
+	(16, 2, 90),
+	(17, 1, 100),
+	(17, 2, 150),
+	(18, 1, 80),
+	(18, 2, 120),
+	(19, 1, 90),
+	(19, 2, 140),
+	(20, 1, 70),
+	(20, 2, 100);
 
 CREATE TABLE IF NOT EXISTS `itens_compra` (
-  `id_item` int(11) NOT NULL,
   `id_compra` int(11) DEFAULT NULL,
   `id_livro` int(11) DEFAULT NULL,
+  `id_tipo` int(11) DEFAULT NULL,
   `quantidade` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_item`),
-  KEY `id_compra` (`id_compra`),
-  KEY `id_livro` (`id_livro`),
+  `valor_unitario` int(11) DEFAULT NULL,
+  KEY `id_tipo` (`id_tipo`),
+  KEY `itens_compra_ibfk_1` (`id_compra`),
+  KEY `itens_compra_ibfk_2` (`id_livro`),
   CONSTRAINT `itens_compra_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compras` (`Id`),
-  CONSTRAINT `itens_compra_ibfk_2` FOREIGN KEY (`id_livro`) REFERENCES `livro` (`id_livro`)
+  CONSTRAINT `itens_compra_ibfk_2` FOREIGN KEY (`id_livro`) REFERENCES `livro` (`id_livro`),
+  CONSTRAINT `itens_compra_ibfk_3` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_livro` (`id_tipo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -158,7 +159,7 @@ INSERT INTO `leitor` (`id_leitor`, `nome`, `email`, `senha`, `data`, `telefone`,
 	(3, 'João Pedro', 'joao.p@exemplo.com', '123', '1988-02-18', '(31) 99888-7766', NULL, 3, NULL, NULL, NULL, NULL, NULL),
 	(4, 'Guilhermw', 'asd@hmial.com', '123', NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, NULL),
 	(5, 'Marcia', 'no@o.com', '1234', NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, NULL),
-	(6, '1', '1', '1', NULL, NULL, '12345678912', 25, 'Gui', 'Bairro legal', 'Legal23', '12', '123'),
+	(6, '1', '1', '1', NULL, NULL, NULL, 25, 'Gui', 'Bairro legal', 'Legal23', '12', '123'),
 	(7, '2', '2', '2', NULL, NULL, '98765432130', 19, NULL, NULL, NULL, NULL, NULL);
 
 CREATE TABLE IF NOT EXISTS `livro` (

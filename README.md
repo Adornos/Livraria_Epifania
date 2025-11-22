@@ -29,6 +29,6 @@
   - ✅ Adicionar ações de compra
   - ✅ Upload de API
   - Adicionar imagem de perfil (opcional)
-  - Arrumar increase e decrease do carrinho
+  -  ✅ Arrumar increase e decrease do carrinho
   - Adicionar carrinho ao banco de dados (opcional porem importante)~
   - Normalizar funções (deixa-las sem parâmetros)

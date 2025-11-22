@@ -14,7 +14,7 @@ import { addItemToCart } from '@api/localDataActions';
 type tiposTemplate = {
   tipo: string,
   price: string,
-  quantidade: string
+  estoque: string
 }
 
 type bookTemplate = {
@@ -52,7 +52,7 @@ export default function Produto() {
       tipo: tipoSelecionado.tipo,
       price: Number(tipoSelecionado.price),
       quantidade: 1,          // quantidade que o usuário está comprando
-      estoque: tipoSelecionado.quantidade  // estoque disponível
+      estoque: Number(tipoSelecionado.estoque)  // estoque disponível
     };
 
     addItemToCart(item);
@@ -71,7 +71,7 @@ export default function Produto() {
                 style={{ padding: 0 }}
               />
               <Text style={[{color: colors.textPrim, fontWeight:800, marginEnd: '7%'}]}>
-                {Number(tipos.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                {Number(tipos.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} - {Number(tipos.estoque)}
               </Text>
             </Pressable>
           ))

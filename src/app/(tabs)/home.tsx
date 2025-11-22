@@ -193,7 +193,7 @@ const livrosCategoriasTemplate = [
 type tiposTemplate = {
   tipo: string;
   price: string;
-  quantidade: string;
+  estoque: string;
 };
 
 type bookTemplate = {

@@ -3,7 +3,7 @@ import * as FileSystem from 'expo-file-system';
 
 const BASE_URL = "http://192.168.1.68/api_epifania";
 
-export const get_livros = async (novoUsuario) => {
+export const get_livros = async () => {
   try {
     const response = await axios.post(`${BASE_URL}/get_livros.php`, {
       headers: { "Content-Type": "application/json" },
