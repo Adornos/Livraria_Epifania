@@ -23,7 +23,7 @@ export default function CartItem({
   titulo,
   price,
   tipo,
-    quantidade,
+  quantidade,
   image,
   onRemove,
   onAdd,

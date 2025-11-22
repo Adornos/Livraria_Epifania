@@ -50,6 +50,14 @@ export const addItemToCart = async (livro) => {
   }
 };
 
+export const updateCartItems = async (newCart) => {
+  try {
+    await AsyncStorage.setItem('@cartData', JSON.stringify(newCart));
+  } catch (e) {
+    console.log("Erro ao atualizar carrinho", e);
+  }
+};
+
 export const getCartItems = async () => {
     try {
         const data = await AsyncStorage.getItem('@cartData');
