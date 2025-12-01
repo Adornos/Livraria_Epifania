@@ -1,4 +1,4 @@
-import { ScrollView, Image, Text, View, Pressable, ImageBackground } from 'react-native';
+import { ScrollView, Image, Text, View, Pressable, ImageBackground, Animated } from 'react-native';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { RadioButton } from 'react-native-paper';
@@ -8,8 +8,10 @@ import TextStyles from '@constants/topography';
 import Button from '@components/Button';
 import { useEffect, useState } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import PlusOneAnimation from '@components/PlusOneAnimation';
 
-import { addItemToCart } from '@api/localDataActions';
+import { addItemToCart, getCartItemsQuantity } from '@api/localDataActions';
+
 
 type tiposTemplate = {
   tipo: string,
@@ -37,12 +39,26 @@ export default function Produto() {
   const colors = useThemeColor();
   const [tipoRadio, setTipoRadio] = useState('0');
   const [preco, setPreco] = useState('');
+  const [numero_itensCarrinho, setNumero_itensCarrinho] = useState(0)
+  const [plusOneTrigger, setPlusOneTrigger] = useState(0);
+
+
+
+  useEffect(() => {
+    const load = async () => {
+      const quantidade = await getCartItemsQuantity();
+      setNumero_itensCarrinho(quantidade);
+    };
+
+    load();
+  }, []);
+
 
   useEffect(() => setPreco(
     Number(bookData.tipos[tipoRadio].price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
   ), [tipoRadio])
 
-  const addToCart = () => {
+  const addToCart = async () => {
     const tipoSelecionado = bookData.tipos[tipoRadio];
 
     const item = {
@@ -55,7 +71,14 @@ export default function Produto() {
       estoque: Number(tipoSelecionado.estoque)  // estoque disponível
     };
 
-    addItemToCart(item);
+    const success = await addItemToCart(item);
+
+    if (success) {
+      const quantidade = await getCartItemsQuantity();
+      setNumero_itensCarrinho(quantidade);
+      
+      setPlusOneTrigger(Date.now())
+    }
   };
 
   const construct_TipoRadioButton = (tiposArray : tiposTemplate[]) => {    
@@ -66,9 +89,10 @@ export default function Produto() {
                 value={i.toString()}
                 label={tipos.tipo}
                 status={tipoRadio === i.toString() ? 'checked' : 'unchecked'}
+                onPress={() => setTipoRadio(i.toString()) }
                 position='leading'
                 labelStyle={{ color: colors.textPrim, fontWeight: 800 }}
-                style={{ padding: 0 }}
+                style={{ padding: 0, zIndex: -2 }}
               />
               <Text style={[{color: colors.textPrim, fontWeight:800, marginEnd: '7%'}]}>
                 {Number(tipos.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} - {Number(tipos.estoque)}
@@ -88,6 +112,21 @@ export default function Produto() {
         style={{ zIndex:100, position: 'absolute', width: 48, padding: 12, left: 20, top: 40, backgroundColor: colors.primaryButton, borderRadius: 100 }}
         >
         <Ionicons name="arrow-back" size={24} color={colors.textBtn} />
+      </Pressable>
+      <Pressable
+        onPress={() => router.push('/cart')}
+        style={{ zIndex:100, position: 'absolute', width: 48, padding: 12, right: 20, top: 40, backgroundColor: colors.primaryButton, borderRadius: 100 }}
+        >
+              <Ionicons name="cart" size={24} color={colors.textBtn} />
+              {
+                numero_itensCarrinho > 0 &&
+                <Text style={{ right: -1, bottom: -1, position: 'absolute', color: colors.textBtn, backgroundColor: colors.backgroundBook, borderRadius: 100, width: 16, height: 16, textAlign: 'center', fontSize: 11 }}>
+                  {numero_itensCarrinho ? numero_itensCarrinho.toString() : ''}
+                </Text>
+              }
+              <PlusOneAnimation
+                trigger={plusOneTrigger} style={{right: -10, bottom: 20}} color={colors.textBtn}
+              />
       </Pressable>
       <ScrollView style={{ flex: 1, backgroundColor: '#00000063'}}>
         <View>
@@ -118,7 +157,6 @@ export default function Produto() {
             </View>
 
             <Button style={{ borderRadius: 100, marginVertical: 20 }} label={`Adicionar ao carrinho — ${preco}`} onPress={() => {addToCart()}} />
-            
           </View>
         </View>
       </ScrollView>

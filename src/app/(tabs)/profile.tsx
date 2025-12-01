@@ -4,7 +4,7 @@ import InputProfile from '@components/InputProfile';
 import Button from '@components/Button';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { getUserData, debugAsyncStorage, userLoginTimeOut } from '@api/localDataActions';
+import { getUserData, debugAsyncStorage, userLoginTimeOut, saveUserData } from '@api/localDataActions';
 import { update_usuario } from '@api/userActions';
 import { router } from 'expo-router';
 import Index from '..';
@@ -80,7 +80,7 @@ export default function Profile() {
     const result = await update_usuario(data);
       if (result.success) {
         alert('Alterações realizadas com sucesso!');
-        
+        saveUserData(data)
       } else {
         alert('Erro durante a alteração: ' + (result.error || 'Desconhecido'));
       }

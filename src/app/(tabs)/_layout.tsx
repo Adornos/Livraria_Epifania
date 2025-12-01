@@ -12,7 +12,6 @@ export default function TabLayout(){
         <Tabs
 
         screenOptions={{
-            headerShown: false,
             tabBarStyle:{
                 backgroundColor: Colors.backgroundPrim,
                 borderColor: Colors.backgroundTert,
@@ -23,13 +22,25 @@ export default function TabLayout(){
             sceneStyle:{
                 backgroundColor: Colors.backgroundPrim
                 },
-        }}
+                headerShown: false,
+            animation: 'shift',
+            }}
         >
             <Tabs.Screen 
                 name="home" 
                 options={{tabBarIcon: ({ color, size, focused }) => (
                     <Ionicons
                     name={focused ? "home" : "home-outline"}
+                    size={size}
+                    color={color}
+                    />
+                )}}
+            />
+            <Tabs.Screen 
+                name="cart" 
+                options={{tabBarIcon: ({ color, size, focused }) => (
+                    <Ionicons
+                    name={focused ? "cart" : "cart-outline"}
                     size={size}
                     color={color}
                     />
@@ -44,16 +55,6 @@ export default function TabLayout(){
                     color={color}
                     />
                 ),}}
-            />
-            <Tabs.Screen 
-                name="cart" 
-                options={{tabBarIcon: ({ color, size, focused }) => (
-                    <Ionicons
-                    name={focused ? "cart" : "cart-outline"}
-                    size={size}
-                    color={color}
-                    />
-                )}}
             />
         </Tabs>
     );

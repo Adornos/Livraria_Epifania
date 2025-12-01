@@ -40,7 +40,7 @@ export const operateCart = async () => {
     const response = await axios.post(`${BASE_URL}/log_compras.php`, JSON.stringify(dados), { //Continuar
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Resposta do servidor ao cartOperate:", response.data);
+    // console.log("Resposta do servidor ao cartOperate:", response.data);
     return response.data;
 
   } catch (error) {

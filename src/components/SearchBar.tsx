@@ -1,28 +1,37 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, ViewProps } from 'react-native';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
 
 type SearchBarProps = {
   onFocus?: (focused: boolean) => void;
   onChangeText?: (text: string) => void;
-  value?: string;                        
+  value?: string;
   placeholder?: string;
+
+  // novas props necessárias
+  autoFocus?: boolean;
+  editable?: boolean;
+  pointerEvents?: ViewProps['pointerEvents'];
 };
 
 export default function SearchBar({
   onFocus,
   onChangeText,
   value: externalValue = '',
-  placeholder = "Buscar livros..."
+  placeholder = "Buscar livros...",
+  
+  autoFocus = false,
+  editable = true,
+  pointerEvents = 'auto'
 }: SearchBarProps) {
-  const [query, setQuery] = useState(externalValue); // estado interno do texto
-  const [isFocused, setIsFocused] = useState(false); // estado interno do foco
+  const [query, setQuery] = useState(externalValue);
+  const [isFocused, setIsFocused] = useState(false);
   const colors = useThemeColor();
 
-  const onFocusFunc = (text: boolean) => {
-    setIsFocused(text); // Atualiza estado interno
-    if (onFocus) onFocus(text); // Chama callback externo se fornecido
+  const onFocusFunc = () => {
+    setIsFocused(true);
+    if (onFocus) onFocus(true);
   };
 
   const changeTextFunc = (text: string) => {
@@ -31,14 +40,20 @@ export default function SearchBar({
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.backgroundTert }]}>
+    <View
+      style={[styles.container, { backgroundColor: colors.backgroundTert }]}
+      pointerEvents={pointerEvents}
+    >
       <Ionicons name="search" size={20} color={colors.textSec} />
+
       <TextInput
         value={query}
         onChangeText={changeTextFunc}
-        onFocus={() => onFocusFunc}
-        placeholder="Buscar livros..."
+        onFocus={onFocusFunc}
+        placeholder={placeholder}
         placeholderTextColor={colors.textSec}
+        autoFocus={autoFocus}
+        editable={editable}
         style={[styles.input, { color: colors.textPrim }]}
       />
     </View>
