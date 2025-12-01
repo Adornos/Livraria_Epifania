@@ -27,8 +27,9 @@ export default function StackLayout(){
                         >
                         <Ionicons name="arrow-back" size={24} color={Colors.textBtn} />
                         </Pressable>
-                        ),
+                    ),
                 }}
+                
                 
             />
         </Stack>

@@ -17,8 +17,8 @@
 - ✅ Finalizar a construção de todas as páginas 
 - ✅ Realizar a conexão com o banco de dados 
 - ✅ Configurar Layout e Paletas 
-- Configurar o fluxo de layout
-- Adicionar balão do carrinho em [produto]
+- ✅ Configurar o fluxo de layout
+- ✅ Adicionar balão do carrinho em [produto]
 - Melhorar o tratamento de dados: 
   - ✅ Fazer armazenagem local de dados 
   - ✅ Adicionar Algoritmo de livros recomendados 
@@ -28,7 +28,7 @@
   - ✅ Adicionar ações do carrinho
   - ✅ Adicionar ações de compra
   - ✅ Upload de API
-  - Adicionar imagem de perfil (opcional)
+  - ✅ Adicionar imagem de perfil (opcional)
   -  ✅ Arrumar increase e decrease do carrinho
   - Adicionar carrinho ao banco de dados (opcional porem importante)~
   - Normalizar funções (deixa-las sem parâmetros)

@@ -37,16 +37,19 @@ export const addItemToCart = async (livro) => {
 
       if (existe) {
           console.log("Item já está no carrinho");
-          return;
+          return false;
       }
 
       carrinho.push(livro);
 
       await AsyncStorage.setItem('@cartData', JSON.stringify(carrinho));
+
+      return true
       
 
   } catch (e) {
       console.log("Erro ao adicionar no carrinho", e);
+      return false
   }
 };
 
@@ -62,17 +65,32 @@ export const getCartItems = async () => {
     try {
         const data = await AsyncStorage.getItem('@cartData');
         const list = data ? JSON.parse(data) : [];
-        
-        // console.log("Dados do carrinho",data);
-        
-        return list.filter(
+
+        const listFilter = list.filter(
             (item) => item && item.id_livro !== undefined && item.id_livro !== null
         );
+        
+        // console.log("Dados do carrinho", listFilter);
 
+        return listFilter
 
     } catch (e) {
         console.log("Erro ao resgatar dados do carrinho", e);
         return [];
+    }
+}
+
+export const getCartItemsQuantity = async () => {
+    try {
+
+        const data = await getCartItems();
+        const quantity = data.length;
+        // console.warn("quantidade", quantity)
+        return quantity;
+
+    } catch (e) {
+        console.log("Erro ao resgatar número de itens do carrinho", e);
+        return 0;
     }
 }
 
@@ -115,11 +133,11 @@ export const userLoginTimeOut = async (noTrigger) => {
         const timeOfLogin = new Date( await getUserLoginState(false).date)
         const timeDiff = (timeNow - timeOfLogin) / 1000 * 60 * 60 * 24
 
-        if (timeDiff >= 2 || noTrigger) {
+        if (timeDiff >= 0 || noTrigger) {
             await AsyncStorage.clear()
             await AsyncStorage.setItem('@userLogin', JSON.stringify({ state: false}))
         }
-        console.log("Estado do login pós TimeOut", await getUserLoginState());
+        // console.log("Estado do login pós TimeOut", await getUserLoginState());
 
     } catch (e) {
         console.log("Erro ao invalidar prazo", e);
@@ -129,7 +147,7 @@ export const userLoginTimeOut = async (noTrigger) => {
 export const getUserLoginState = async (showState = true) => {
     try {
         const result = await AsyncStorage.getItem('@userLogin')
-        !showState && console.log("Estado do login", result);
+        // !showState && console.log("Estado do login", result);
         return result != null ? JSON.parse(result) : null;
         
     } catch (e) {

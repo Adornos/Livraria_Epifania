@@ -5,7 +5,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import TextStyles from '@constants/topography';
 import Button from '@components/Button';
 
-import { getCartItems, flushCartItems, removeCartItem, updateCartItems } from '@api/localDataActions';
+import { getCartItems, flushCartItems, removeCartItem, updateCartItems, getUserData } from '@api/localDataActions';
 import { operateCart } from '@api/cartActions';
 
 import CartItem, {CartItemTemplate} from '@components/CartItem';
@@ -33,6 +33,15 @@ export default function Cart() {
   }, [items])
 
   async function handleCartOperation() {
+
+    const userData = await getUserData();
+    
+    // console.log(userData)
+
+    if (userData.cpf == null) {
+      Alert.alert("Erro", "Preencha o CPF antes de finalizar a compra!");
+      return;
+    }
 
     const result = await operateCart();
     if (result.success) {
